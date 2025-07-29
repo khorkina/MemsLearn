@@ -29,10 +29,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 The student is learning English at the ${level.toUpperCase()} level.
 
-The meme text is:
-"${memeTitle}"
+Analyze this meme image and its text: "${memeTitle}"
 
-Generate a vocabulary-focused English learning lesson in the following JSON structure:
+Generate a vocabulary-focused English learning lesson based on both the visual content and text of the meme in the following JSON structure:
 
 {
   "vocabulary": [
@@ -70,16 +69,17 @@ Generate a vocabulary-focused English learning lesson in the following JSON stru
 }
 
 IMPORTANT: 
-- Extract 5-8 vocabulary words from the meme text
+- Extract 5-8 vocabulary words from both the meme image and text
 - Create 8-12 interactive quiz questions (multiple choice, fill-in-the-gap, or true/false)
 - Focus ONLY on vocabulary learning - no meme descriptions or cultural explanations
 - Make definitions appropriate for ${level} level students
 - Create diverse question types to practice the vocabulary thoroughly
+- Use visual context from the image to enhance vocabulary selection
 
 Make your explanations clear and supportive. Focus purely on vocabulary learning appropriate for the ${level} level.`;
 
       const response = await openai.chat.completions.create({
-        model: "gpt-4o",
+        model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
         messages: [
           {
             role: "system",
@@ -87,11 +87,24 @@ Make your explanations clear and supportive. Focus purely on vocabulary learning
           },
           {
             role: "user",
-            content: prompt
+            content: [
+              {
+                type: "text",
+                text: prompt
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: memeUrl,
+                  detail: "high"
+                }
+              }
+            ]
           }
         ],
         response_format: { type: "json_object" },
         temperature: 0.7,
+        max_tokens: 2000,
       });
 
       const content = response.choices[0].message.content;
