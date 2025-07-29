@@ -13,14 +13,16 @@ import { BottomNavigation } from "@/components/bottom-navigation";
 function Router() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/lesson/:memeId" component={Lesson} />
-        <Route path="/saved" component={Saved} />
-        <Route path="/account" component={Account} />
-        <Route component={NotFound} />
-      </Switch>
       <BottomNavigation />
+      <div className="pb-20 md:pb-0 md:pt-16">
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/lesson/:memeId" component={Lesson} />
+          <Route path="/saved" component={Saved} />
+          <Route path="/account" component={Account} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     </div>
   );
 }
