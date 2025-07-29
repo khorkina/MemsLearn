@@ -81,8 +81,8 @@ export default function Lesson() {
   };
 
   const handleStartLessonDirectly = () => {
-    // Skip explanation and level selection, go directly to lesson with default intermediate level
-    selectLevel('intermediate');
+    // Skip explanation but show level selection
+    setCurrentStep('level');
   };
 
   const handleContinueToLevel = () => {
