@@ -12,7 +12,7 @@ export default function Home() {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="w-6 h-6 text-white" />
               </div>
-              <h1 className="text-2xl font-semibold text-primary">AirMems</h1>
+              <h1 className="text-2xl font-semibold text-primary">MemsLearn</h1>
             </div>
             <nav className="hidden md:flex space-x-6">
               <a href="#feed" className="text-primary hover:text-primary/80 transition-colors">
@@ -42,7 +42,7 @@ export default function Home() {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-semibold text-primary">AirMems</span>
+              <span className="text-lg font-semibold text-primary">MemsLearn</span>
             </div>
             <p className="text-gray-600 text-sm mb-4">
               Learn English through the power of memes and humor

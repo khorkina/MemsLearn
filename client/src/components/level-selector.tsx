@@ -39,7 +39,7 @@ export function LevelSelector({ onSelectLevel, selectedLevel, isLoading }: Level
           Select your English level
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {levels.map((level) => {
             const Icon = level.icon;
             const isSelected = selectedLevel === level.value;
@@ -48,19 +48,21 @@ export function LevelSelector({ onSelectLevel, selectedLevel, isLoading }: Level
               <Button
                 key={level.value}
                 variant="outline"
-                className={`h-auto p-4 transition-all duration-300 ${
+                className={`h-auto p-6 transition-all duration-300 flex flex-col items-center justify-center ${
                   isSelected 
-                    ? 'border-primary bg-accent' 
+                    ? 'border-primary bg-accent text-primary' 
                     : 'border-border hover:border-primary hover:bg-accent'
-                }`}
+                } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={() => onSelectLevel(level.value)}
                 disabled={isLoading}
               >
-                <div className="text-center">
-                  <Icon className="w-8 h-8 text-primary mb-2 mx-auto" />
-                  <h4 className="font-medium text-gray-800">{level.title}</h4>
-                  <p className="text-sm text-gray-600 mt-1">{level.description}</p>
-                </div>
+                <Icon className={`w-10 h-10 mb-3 ${isSelected ? 'text-primary' : 'text-gray-600'}`} />
+                <h4 className={`font-semibold text-lg mb-2 ${isSelected ? 'text-primary' : 'text-gray-800 dark:text-gray-200'}`}>
+                  {level.title}
+                </h4>
+                <p className={`text-sm text-center leading-relaxed ${isSelected ? 'text-primary/80' : 'text-gray-600 dark:text-gray-400'}`}>
+                  {level.description}
+                </p>
               </Button>
             );
           })}

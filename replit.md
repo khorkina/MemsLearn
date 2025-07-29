@@ -1,8 +1,8 @@
-# AirMems - English Learning Web Application
+# MemsLearn - English Learning Web Application
 
 ## Overview
 
-AirMems is an English-learning web application that uses Reddit memes as the foundation for interactive, personalized language lessons. The application fetches memes from English-based subreddits and generates AI-powered lessons tailored to different English proficiency levels (beginner, intermediate, advanced).
+MemsLearn is an English-learning web application that uses Reddit memes as the foundation for interactive, personalized vocabulary lessons. The application fetches memes from English-based subreddits and generates AI-powered vocabulary-focused lessons tailored to different English proficiency levels (beginner, intermediate, advanced).
 
 ## User Preferences
 
@@ -43,18 +43,18 @@ Preferred communication style: Simple, everyday language.
 - **InteractiveQuiz**: Dynamic quiz questions based on meme content
 
 ### Learning Features
-- **Vocabulary Learning**: Extract and teach key words from memes
-- **Cultural Context**: Explain humor and cultural references
-- **Interactive Exercises**: Multiple choice, fill-in-the-gap, true/false questions
+- **Vocabulary Learning**: Extract and teach 5-8 key words from memes with level-appropriate definitions
+- **Interactive Exercises**: 8-12 diverse quiz questions (multiple choice, fill-in-the-gap, true/false)
+- **Mobile-Friendly Interface**: Bottom navigation for easy mobile access to saved lessons and account
 
 ## Data Flow
 
-1. **Meme Discovery**: User browses infinite scroll feed of Reddit memes
+1. **Meme Discovery**: User browses infinite scroll feed of Reddit memes with proper aspect ratio display
 2. **Lesson Initiation**: User clicks meme → navigates to lesson page
-3. **Level Selection**: User selects English proficiency level
-4. **AI Generation**: OpenAI generates personalized lesson based on meme + level
-5. **Interactive Learning**: User completes vocabulary exercises and quiz
-6. **Progress Tracking**: Results saved to IndexedDB for future reference
+3. **Level Selection**: User selects English proficiency level via improved desktop/mobile interface
+4. **AI Generation**: OpenAI generates vocabulary-focused lesson (no meme descriptions) via server proxy
+5. **Interactive Learning**: User completes 8-12 vocabulary exercises and quiz questions
+6. **Progress Tracking**: Results saved to IndexedDB with account statistics and saved lessons management
 
 ## External Dependencies
 

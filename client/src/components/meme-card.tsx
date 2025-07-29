@@ -20,11 +20,11 @@ export function MemeCard({ meme, onClick }: MemeCardProps) {
       className="meme-card cursor-pointer overflow-hidden shadow-lg hover:shadow-xl"
       onClick={onClick}
     >
-      <div className="relative">
+      <div className="relative h-64 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
         <img 
           src={meme.url} 
           alt={meme.title}
-          className="w-full h-64 object-cover"
+          className="max-w-full max-h-full object-contain"
           loading="lazy"
           onError={(e) => {
             // Fallback for broken images

@@ -113,16 +113,18 @@ export default function Lesson() {
 
             {/* Meme Display */}
             <Card className="shadow-lg overflow-hidden mb-8">
-              <img
-                src={meme.url}
-                alt={meme.title}
-                className="w-full h-96 object-cover"
-              />
+              <div className="flex justify-center bg-gray-100 dark:bg-gray-800">
+                <img
+                  src={meme.url}
+                  alt={meme.title}
+                  className="max-w-full max-h-96 object-contain"
+                />
+              </div>
               <CardContent className="p-6">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-3">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">
                   {meme.title}
                 </h2>
-                <div className="flex items-center justify-between text-gray-600">
+                <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                   <span>{meme.subreddit}</span>
                   <a
                     href={meme.permalink}
