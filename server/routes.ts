@@ -25,29 +25,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
         apiKey: process.env.OPENAI_API_KEY 
       });
 
-      const prompt = `You are an expert English teacher who creates fun, effective language lessons using memes from Reddit.
+      const prompt = `You are an expert English teacher who creates vocabulary-focused language lessons using memes from Reddit.
 
 The student is learning English at the ${level.toUpperCase()} level.
 
 The meme text is:
 "${memeTitle}"
 
-Generate a personalized English-learning lesson in the following JSON structure:
+Generate a vocabulary-focused English learning lesson in the following JSON structure:
 
 {
-  "explanation": "Explain the meme and why it's funny or culturally relevant, using language appropriate to the student's level.",
   "vocabulary": [
     {
-      "word": "word or phrase",
+      "word": "word or phrase from the meme",
       "definition": "clear, level-appropriate definition", 
-      "example": "one example sentence"
+      "example": "one example sentence using this word"
     }
   ],
   "questions": [
     {
       "id": "q1",
       "type": "multiple_choice",
-      "question": "Question text",
+      "question": "What does 'word' mean?",
       "options": ["Option A", "Option B", "Option C", "Option D"],
       "correctAnswer": "Option B",
       "explanation": "Why this answer is correct"
@@ -62,17 +61,22 @@ Generate a personalized English-learning lesson in the following JSON structure:
     {
       "id": "q3",
       "type": "true_false", 
-      "question": "True or False: This meme is only funny to programmers.",
+      "question": "True or False: This word is commonly used in everyday English.",
       "options": ["True", "False"],
-      "correctAnswer": "False",
+      "correctAnswer": "True",
       "explanation": "Why this is true or false"
     }
   ]
 }
 
-Create 3-5 interactive quiz questions (multiple choice, fill-in-the-gap, or true/false), based on the meme text or vocabulary.
+IMPORTANT: 
+- Extract 5-8 vocabulary words from the meme text
+- Create 8-12 interactive quiz questions (multiple choice, fill-in-the-gap, or true/false)
+- Focus ONLY on vocabulary learning - no meme descriptions or cultural explanations
+- Make definitions appropriate for ${level} level students
+- Create diverse question types to practice the vocabulary thoroughly
 
-Make your explanations engaging and supportive. Keep the tone light and encouraging. Focus on practical English learning appropriate for the ${level} level.`;
+Make your explanations clear and supportive. Focus purely on vocabulary learning appropriate for the ${level} level.`;
 
       const response = await openai.chat.completions.create({
         model: "gpt-4o",
@@ -102,7 +106,7 @@ Make your explanations engaging and supportive. Keep the tone light and encourag
         id: `lesson_${memeId}_${level}_${Date.now()}`,
         memeId,
         level,
-        explanation: lessonData.explanation,
+        explanation: "", // No explanation/description needed
         vocabulary: lessonData.vocabulary.map((item: any) => ({
           word: item.word,
           definition: item.definition,

@@ -49,18 +49,7 @@ export function LessonContent({ lesson, meme, onSaveLesson, onBackToFeed }: Less
         </CardContent>
       </Card>
 
-      {/* Meme Explanation */}
-      <Card className="shadow-lg mb-6">
-        <CardContent className="p-6">
-          <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
-            <Lightbulb className="w-6 h-6 mr-3" />
-            Meme Explanation
-          </h3>
-          <div className="prose text-gray-700">
-            <p>{lesson.explanation}</p>
-          </div>
-        </CardContent>
-      </Card>
+
 
       {/* Vocabulary Section */}
       <Card className="shadow-lg mb-6">

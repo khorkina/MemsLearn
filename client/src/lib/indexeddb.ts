@@ -157,6 +157,60 @@ class IndexedDBService {
       request.onerror = () => reject(request.error);
     });
   }
+
+  async getAllLessons(): Promise<Lesson[]> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(["lessons"], "readonly");
+      const store = transaction.objectStore("lessons");
+      const request = store.getAll();
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async deleteLesson(id: string): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(["lessons"], "readwrite");
+      const store = transaction.objectStore("lessons");
+      const request = store.delete(id);
+
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async clearAllData(): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(["lessons", "savedLessons", "userProgress"], "readwrite");
+      
+      const clearStore = (storeName: string) => {
+        return new Promise<void>((resolveStore, rejectStore) => {
+          const store = transaction.objectStore(storeName);
+          const request = store.clear();
+          request.onsuccess = () => resolveStore();
+          request.onerror = () => rejectStore(request.error);
+        });
+      };
+
+      Promise.all([
+        clearStore("lessons"),
+        clearStore("savedLessons"),
+        clearStore("userProgress")
+      ]).then(() => resolve()).catch(reject);
+    });
+  }
 }
 
 export const indexedDBService = new IndexedDBService();
+
+// Export convenience functions for direct use
+export const getAllLessons = () => indexedDBService.getAllLessons();
+export const deleteLesson = (id: string) => indexedDBService.deleteLesson(id);
+export const clearAllData = () => indexedDBService.clearAllData();
