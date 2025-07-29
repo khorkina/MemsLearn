@@ -222,12 +222,29 @@ Make your explanations clear and supportive. Focus purely on vocabulary learning
         max_tokens: 2000,
       });
 
-      const content = response.choices[0].message.content;
+      console.log("OpenAI response:", JSON.stringify(response, null, 2));
+
+      const content = response.choices[0]?.message?.content;
       if (!content) {
-        throw new Error("No content received from OpenAI");
+        console.error("No content in OpenAI response:", response);
+        throw new Error(`No content received from OpenAI. Response: ${JSON.stringify(response.choices[0])}`);
       }
 
-      const lessonData = JSON.parse(content);
+      let lessonData;
+      try {
+        lessonData = JSON.parse(content);
+      } catch (parseError) {
+        console.error("Failed to parse OpenAI response as JSON:", content);
+        throw new Error(`Invalid JSON response from OpenAI: ${parseError instanceof Error ? parseError.message : 'Unknown parsing error'}`);
+      }
+
+      // Validate required fields
+      if (!lessonData.vocabulary || !Array.isArray(lessonData.vocabulary)) {
+        throw new Error("OpenAI response missing vocabulary array");
+      }
+      if (!lessonData.questions || !Array.isArray(lessonData.questions)) {
+        throw new Error("OpenAI response missing questions array");
+      }
 
       // Convert to our lesson format
       const lesson = {
@@ -236,17 +253,17 @@ Make your explanations clear and supportive. Focus purely on vocabulary learning
         level,
         explanation: "", // No explanation/description needed
         vocabulary: lessonData.vocabulary.map((item: any) => ({
-          word: item.word,
-          definition: item.definition,
-          example: item.example,
+          word: item.word || "",
+          definition: item.definition || "",
+          example: item.example || "",
         })),
         questions: lessonData.questions.map((q: any) => ({
-          id: q.id,
-          type: q.type,
-          question: q.question,
+          id: q.id || `q${Math.random()}`,
+          type: q.type || "multiple_choice",
+          question: q.question || "",
           options: q.options || [],
-          correctAnswer: q.correctAnswer,
-          explanation: q.explanation,
+          correctAnswer: q.correctAnswer || "",
+          explanation: q.explanation || "",
         })),
         createdAt: Date.now(),
       };
