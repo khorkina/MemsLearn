@@ -1,0 +1,123 @@
+You are building an English-learning web application called **AirMems**, which uses Reddit memes as the foundation for interactive, personalized language lessons.
+
+Below is a detailed feature specification and implementation guide. You must follow it exactly, with strict design and data-handling requirements.
+
+---
+
+🖼️ 1. **MEME FEED (infinite scroll)**
+
+- Fetch memes from Reddit using either:
+  - Reddit API (preferred), or
+  - Meme API proxy (e.g. https://meme-api.com/gimme/EnglishMemes).
+- Only use English-based subreddits like `r/EnglishMemes`, `r/memes`, `r/wholesomememes`, or similar.
+- Display meme images in a vertically scrolling, infinite grid or list format.
+- Each image must include the **source link** to the original Reddit post (e.g. `Source: reddit.com/r/memes/post/xyz`) below the image.
+
+**Do not store or copy memes locally or in a database.** Only store image URLs, titles, and Reddit links in IndexedDB for caching purposes.
+
+---
+
+🎯 2. **ON IMAGE CLICK – MEME LESSON FLOW**
+
+When a user clicks on a meme image:
+
+1. They are redirected to a **Lesson Page**.
+2. The meme is shown in large view.
+3. A dropdown appears:  
+   “🧠 Select your English level: [Beginner | Intermediate | Advanced]”
+
+Once the user selects a level, the system sends a prompt to OpenAI to generate a **personalized lesson** based on that meme and user level.
+
+---
+
+🧠 3. **OPENAI PROMPT – Lesson Generation**
+
+Use this prompt for OpenAI (GPT-4, temperature = 0.7):
+
+```plaintext
+You are an expert English teacher who creates fun, effective language lessons using memes from Reddit.
+
+The student is learning English at the [BEGINNER/INTERMEDIATE/ADVANCED] level.
+
+The meme text is:
+"[Insert meme title or overlaid text here]"
+
+Generate a personalized English-learning lesson in the following structure:
+
+1. 🔍 Meme Explanation  
+Explain the meme and why it's funny or culturally relevant, using language appropriate to the student's level.
+
+2. 🧠 Vocabulary & Idioms  
+List all relevant vocabulary, phrases, or idioms.  
+Provide a clear, level-appropriate definition and one example sentence for each.
+
+3. 📝 IELTS-Style Interactive Exercise  
+Create 3–5 interactive quiz questions (multiple choice, matching, fill-in-the-gap, or true/false), based on the meme text or vocabulary.  
+For each question:
+- Provide the question text,
+- 3–4 answer options,
+- Mark the correct answer with a key.
+
+4. ✅ Answer Check  
+Generate a functionally checkable list of answers with short explanations why the correct answers are correct.
+
+Make your explanations engaging and supportive. Keep the tone light and encouraging.
+💾 4. DATA STORAGE POLICY
+
+The application must NOT use any external or server-based databases.
+
+All data (meme metadata, user-selected level, lesson content, answers) must be stored locally using IndexedDB.
+
+No user accounts. No cookies. No session data.
+
+Everything must happen on the client side, stored temporarily or persistently in IndexedDB only.
+
+🎨 5. DESIGN GUIDELINES (CoFi style)
+
+The UI must strictly follow minimalist principles, inspired by the CoFi platform aesthetic.
+
+Use the following design language:
+
+Background: Light beige or off-white (#fdf6e3)
+
+Accents: Soft brown (#8b6d5c), muted gray (#aaa)
+
+Fonts: Use clean sans-serif typography (like Inter, Helvetica, or Nunito)
+
+Buttons: Rounded corners, subtle shadows, minimal icons
+
+Layout: Grid layout for memes, centered content on lesson pages
+
+No unnecessary color. No gradients. Everything should look natural, soft, and easy on the eyes.
+
+Animations: Smooth fade-ins, hover effects, subtle transitions.
+
+📱 6. RESPONSIVE & ACCESSIBLE
+
+The app must be fully mobile-responsive.
+
+All images must include alt text generated from the meme title.
+
+All interactive elements (e.g. questions) must be accessible via keyboard.
+
+📌 7. LEGAL COMPLIANCE
+
+Reddit content must always include the link to the original post.
+
+Do not redistribute or resell images.
+
+OpenAI content should be used only for educational purposes.
+
+Avoid inappropriate, offensive, or NSFW memes (filter with keywords or moderation layer).
+
+🔁 8. OPTIONAL FEATURES (future)
+
+User can “Save” favorite memes to their IndexedDB.
+
+Dark mode toggle.
+
+Track lesson completion and difficulty level.
+
+Your job is to follow this specification strictly, producing a fully functional prototype or web app component that can be later integrated into a bigger platform. Prioritize performance, simplicity, and clarity in user experience.
+
+Do not require any server deployment. Everything must work in the browser.
