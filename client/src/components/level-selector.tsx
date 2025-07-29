@@ -48,7 +48,7 @@ export function LevelSelector({ onSelectLevel, selectedLevel, isLoading }: Level
               <Button
                 key={level.value}
                 variant="outline"
-                className={`h-auto p-3 sm:p-4 lg:p-6 transition-all duration-300 flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px] ${
+                className={`h-auto p-4 sm:p-6 lg:p-8 transition-all duration-300 flex flex-col items-center justify-center min-h-[100px] sm:min-h-[120px] ${
                   isSelected 
                     ? 'border-primary bg-accent text-primary' 
                     : 'border-border hover:border-primary hover:bg-accent'
@@ -56,13 +56,10 @@ export function LevelSelector({ onSelectLevel, selectedLevel, isLoading }: Level
                 onClick={() => onSelectLevel(level.value)}
                 disabled={isLoading}
               >
-                <Icon className={`w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mb-1 sm:mb-2 lg:mb-3 flex-shrink-0 ${isSelected ? 'text-primary' : 'text-gray-600'}`} />
-                <h4 className={`font-semibold text-sm sm:text-base lg:text-lg mb-1 text-center ${isSelected ? 'text-primary' : 'text-gray-800 dark:text-gray-200'}`}>
+                <Icon className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 mb-2 sm:mb-3 flex-shrink-0 ${isSelected ? 'text-primary' : 'text-gray-600'}`} />
+                <h4 className={`font-semibold text-base sm:text-lg lg:text-xl text-center ${isSelected ? 'text-primary' : 'text-gray-800 dark:text-gray-200'}`}>
                   {level.title}
                 </h4>
-                <p className={`text-xs sm:text-sm lg:text-sm text-center leading-tight px-1 ${isSelected ? 'text-primary/80' : 'text-gray-600 dark:text-gray-400'} line-clamp-2`}>
-                  {level.description}
-                </p>
               </Button>
             );
           })}
