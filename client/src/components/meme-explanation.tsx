@@ -18,7 +18,7 @@ export function MemeExplanationDisplay({ explanation, onContinue }: MemeExplanat
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold text-primary flex items-center">
             <CheckCircle className="w-6 h-6 mr-3 text-green-500" />
-            Объяснение мема
+            Meme Explanation
           </h3>
           {selectedLanguage && (
             <span className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
@@ -30,7 +30,7 @@ export function MemeExplanationDisplay({ explanation, onContinue }: MemeExplanat
         <div className="space-y-4">
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
-              Объяснение:
+              Explanation:
             </h4>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               {explanation.explanation}
@@ -40,7 +40,7 @@ export function MemeExplanationDisplay({ explanation, onContinue }: MemeExplanat
           {explanation.culturalContext && (
             <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
               <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
-                Культурный контекст:
+                Cultural Context:
               </h4>
               <p className="text-blue-700 dark:text-blue-300 leading-relaxed">
                 {explanation.culturalContext}
@@ -54,7 +54,7 @@ export function MemeExplanationDisplay({ explanation, onContinue }: MemeExplanat
             onClick={onContinue}
             className="bg-primary hover:bg-primary/90"
           >
-            Перейти к выбору уровня
+            Continue to level selection
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>

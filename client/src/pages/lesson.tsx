@@ -80,6 +80,11 @@ export default function Lesson() {
     setCurrentStep('level');
   };
 
+  const handleStartLessonDirectly = () => {
+    // Skip explanation and level selection, go directly to lesson with default intermediate level
+    selectLevel('intermediate');
+  };
+
   const handleContinueToLevel = () => {
     setCurrentStep('level');
   };
@@ -186,6 +191,7 @@ export default function Lesson() {
               onSelectLanguage={handleLanguageSelect}
               selectedLanguage={null}
               onSkip={handleSkipExplanation}
+              onStartLesson={handleStartLessonDirectly}
               isLoading={isGeneratingExplanation}
             />
           )}
@@ -197,9 +203,9 @@ export default function Lesson() {
                 <div className="text-center">
                   <Loader2 className="w-12 h-12 animate-spin text-primary mb-4 mx-auto" />
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                    Генерирую объяснение мема...
+                    Generating meme explanation...
                   </h3>
-                  <p className="text-gray-600">Анализирую изображение и контекст</p>
+                  <p className="text-gray-600">Analyzing image and context</p>
                 </div>
               </CardContent>
             </Card>

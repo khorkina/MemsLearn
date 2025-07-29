@@ -8,6 +8,7 @@ interface LanguageSelectorProps {
   onSelectLanguage: (language: SupportedLanguage) => void;
   selectedLanguage: SupportedLanguage | null;
   onSkip: () => void;
+  onStartLesson: () => void;
   isLoading: boolean;
 }
 
@@ -15,6 +16,7 @@ export function LanguageSelector({
   onSelectLanguage, 
   selectedLanguage, 
   onSkip, 
+  onStartLesson,
   isLoading 
 }: LanguageSelectorProps) {
   const handleLanguageSelect = (value: string) => {
@@ -26,12 +28,12 @@ export function LanguageSelector({
       <CardContent className="p-6">
         <h3 className="text-xl font-semibold text-primary mb-4 flex items-center">
           <Globe className="w-6 h-6 mr-3" />
-          Объяснить мем на вашем языке
+          Get meme explanation in your language
         </h3>
         
         <p className="text-gray-600 dark:text-gray-400 mb-6">
-          Хотите получить объяснение мема на родном языке перед созданием урока? 
-          Это поможет лучше понять контекст и юмор.
+          Want to understand this meme better before creating your lesson? 
+          Get an explanation in your native language to understand the context and humor.
         </p>
 
         <div className="space-y-4">
@@ -39,7 +41,7 @@ export function LanguageSelector({
             <div className="flex-1">
               <Select onValueChange={handleLanguageSelect} disabled={isLoading}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Выберите язык для объяснения" />
+                  <SelectValue placeholder="Choose explanation language" />
                 </SelectTrigger>
                 <SelectContent>
                   {languageOptions.map((language) => (
@@ -62,25 +64,33 @@ export function LanguageSelector({
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Генерирую объяснение...
+                  Generating explanation...
                 </>
               ) : (
                 <>
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  Получить объяснение
+                  Get explanation
                 </>
               )}
             </Button>
           </div>
 
-          <div className="text-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button 
               variant="ghost" 
               onClick={onSkip}
               disabled={isLoading}
               className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             >
-              Пропустить и перейти к выбору уровня
+              Skip to level selection
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={onStartLesson}
+              disabled={isLoading}
+              className="border-primary text-primary hover:bg-primary hover:text-white"
+            >
+              Start lesson directly
             </Button>
           </div>
         </div>
