@@ -18,6 +18,50 @@ export type Meme = z.infer<typeof memeSchema>;
 export const englishLevelSchema = z.enum(["beginner", "intermediate", "advanced"]);
 export type EnglishLevel = z.infer<typeof englishLevelSchema>;
 
+// Supported languages for meme explanation
+export const supportedLanguageSchema = z.enum([
+  "english", "russian", "spanish", "french", "german", "italian", 
+  "portuguese", "chinese", "japanese", "korean", "arabic", "hindi",
+  "turkish", "polish", "dutch", "swedish", "norwegian", "danish",
+  "finnish", "czech"
+]);
+export type SupportedLanguage = z.infer<typeof supportedLanguageSchema>;
+
+export const languageOptions = [
+  { code: "english", name: "English", nativeName: "English" },
+  { code: "russian", name: "Russian", nativeName: "Русский" },
+  { code: "spanish", name: "Spanish", nativeName: "Español" },
+  { code: "french", name: "French", nativeName: "Français" },
+  { code: "german", name: "German", nativeName: "Deutsch" },
+  { code: "italian", name: "Italian", nativeName: "Italiano" },
+  { code: "portuguese", name: "Portuguese", nativeName: "Português" },
+  { code: "chinese", name: "Chinese", nativeName: "中文" },
+  { code: "japanese", name: "Japanese", nativeName: "日本語" },
+  { code: "korean", name: "Korean", nativeName: "한국어" },
+  { code: "arabic", name: "Arabic", nativeName: "العربية" },
+  { code: "hindi", name: "Hindi", nativeName: "हिन्दी" },
+  { code: "turkish", name: "Turkish", nativeName: "Türkçe" },
+  { code: "polish", name: "Polish", nativeName: "Polski" },
+  { code: "dutch", name: "Dutch", nativeName: "Nederlands" },
+  { code: "swedish", name: "Swedish", nativeName: "Svenska" },
+  { code: "norwegian", name: "Norwegian", nativeName: "Norsk" },
+  { code: "danish", name: "Danish", nativeName: "Dansk" },
+  { code: "finnish", name: "Finnish", nativeName: "Suomi" },
+  { code: "czech", name: "Czech", nativeName: "Čeština" },
+] as const;
+
+// Meme explanation structure
+export const memeExplanationSchema = z.object({
+  id: z.string(),
+  memeId: z.string(),
+  language: supportedLanguageSchema,
+  explanation: z.string(),
+  culturalContext: z.string().optional(),
+  createdAt: z.number(),
+});
+
+export type MemeExplanation = z.infer<typeof memeExplanationSchema>;
+
 // Vocabulary item
 export const vocabularyItemSchema = z.object({
   word: z.string(),

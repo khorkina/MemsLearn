@@ -51,10 +51,12 @@ Preferred communication style: Simple, everyday language.
 
 1. **Meme Discovery**: User browses infinite scroll feed of Reddit memes with proper aspect ratio display
 2. **Lesson Initiation**: User clicks meme → navigates to lesson page
-3. **Level Selection**: User selects English proficiency level via improved desktop/mobile interface
-4. **AI Generation**: OpenAI generates vocabulary-focused lesson (no meme descriptions) via server proxy
-5. **Interactive Learning**: User completes 8-12 vocabulary exercises and quiz questions
-6. **Progress Tracking**: Results saved to IndexedDB with account statistics and saved lessons management
+3. **Language Selection (Optional)**: User can choose from 20 languages to get meme explanation in their native language
+4. **Meme Explanation**: OpenAI analyzes image and text to provide cultural context and humor explanation
+5. **Level Selection**: User selects English proficiency level via improved desktop/mobile interface
+6. **AI Generation**: OpenAI generates vocabulary-focused lesson (no meme descriptions) via server proxy
+7. **Interactive Learning**: User completes 8-12 vocabulary exercises and quiz questions
+8. **Progress Tracking**: Results saved to IndexedDB with account statistics and saved lessons management
 
 ## External Dependencies
 

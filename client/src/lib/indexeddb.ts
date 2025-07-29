@@ -1,4 +1,4 @@
-import { Meme, Lesson, UserProgress, SavedLesson } from "@shared/schema";
+import { Meme, Lesson, UserProgress, SavedLesson, MemeExplanation } from "@shared/schema";
 
 const DB_NAME = "AirMemsDB";
 const DB_VERSION = 1;
@@ -39,6 +39,12 @@ class IndexedDBService {
         // Saved lessons store
         if (!db.objectStoreNames.contains("savedLessons")) {
           db.createObjectStore("savedLessons", { keyPath: "lessonId" });
+        }
+
+        // Meme explanations store
+        if (!db.objectStoreNames.contains("explanations")) {
+          const explanationsStore = db.createObjectStore("explanations", { keyPath: "id" });
+          explanationsStore.createIndex("memeId", "memeId", { unique: false });
         }
       };
     });
@@ -184,11 +190,51 @@ class IndexedDBService {
     });
   }
 
+  async saveExplanation(explanation: MemeExplanation): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(["explanations"], "readwrite");
+      const store = transaction.objectStore("explanations");
+      const request = store.put(explanation);
+
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getExplanation(id: string): Promise<MemeExplanation | null> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(["explanations"], "readonly");
+      const store = transaction.objectStore("explanations");
+      const request = store.get(id);
+
+      request.onsuccess = () => resolve(request.result || null);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getExplanationsByMeme(memeId: string): Promise<MemeExplanation[]> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction(["explanations"], "readonly");
+      const store = transaction.objectStore("explanations");
+      const index = store.index("memeId");
+      const request = index.getAll(memeId);
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
   async clearAllData(): Promise<void> {
     if (!this.db) throw new Error("Database not initialized");
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(["lessons", "savedLessons", "userProgress"], "readwrite");
+      const transaction = this.db!.transaction(["lessons", "savedLessons", "userProgress", "explanations"], "readwrite");
       
       const clearStore = (storeName: string) => {
         return new Promise<void>((resolveStore, rejectStore) => {
@@ -202,7 +248,8 @@ class IndexedDBService {
       Promise.all([
         clearStore("lessons"),
         clearStore("savedLessons"),
-        clearStore("userProgress")
+        clearStore("userProgress"),
+        clearStore("explanations")
       ]).then(() => resolve()).catch(reject);
     });
   }
