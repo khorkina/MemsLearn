@@ -72,6 +72,13 @@ IMPORTANT:
 
 Make your explanation helpful for language students.`;
 
+      // Validate that we have a proper image URL
+      if (!memeUrl || !memeUrl.startsWith('http')) {
+        throw new Error("Invalid image URL provided");
+      }
+
+      console.log(`[EXPLAIN-MEME] Processing meme: "${memeTitle}" with image: ${memeUrl}`);
+
       // Use vision API to analyze both image and text
       const response = await openai.chat.completions.create({
         model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
@@ -195,6 +202,13 @@ IMPORTANT:
 - Keep content educational and appropriate
 
 Focus on vocabulary learning appropriate for the ${level} level.`;
+
+      // Validate that we have a proper image URL
+      if (!memeUrl || !memeUrl.startsWith('http')) {
+        throw new Error("Invalid image URL provided");
+      }
+
+      console.log(`[GENERATE-LESSON] Processing meme: "${memeTitle}" with image: ${memeUrl} for ${level} level`);
 
       // Use vision API to analyze both image and text for comprehensive lesson generation
       const response = await openai.chat.completions.create({
