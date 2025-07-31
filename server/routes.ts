@@ -53,17 +53,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const prompt = `You are an expert in internet culture helping students understand online content. 
 
-Please provide an educational explanation of this internet meme with title: "${memeTitle}"
+Analyze both the image and the title "${memeTitle}" to provide a comprehensive understanding.
 
 Provide a clear, comprehensive explanation in ${targetLanguage} language in the following JSON structure:
 
 {
-  "explanation": "Educational explanation of what this content means and its context",
+  "explanation": "Educational explanation of what this content means and its context, analyzing both the visual elements and text",
   "culturalContext": "Any cultural background or context needed to understand this content"
 }
 
 IMPORTANT: 
 - Respond ONLY in ${targetLanguage} language
+- Analyze both the image content and the text title
 - Focus on educational and cultural understanding
 - Keep explanations appropriate and educational
 - If there are no significant cultural elements, you can omit the culturalContext field
@@ -71,7 +72,7 @@ IMPORTANT:
 
 Make your explanation helpful for language students.`;
 
-      // Use text-only approach to avoid content policy issues
+      // Use vision API to analyze both image and text
       const response = await openai.chat.completions.create({
         model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
         messages: [
@@ -81,7 +82,19 @@ Make your explanation helpful for language students.`;
           },
           {
             role: "user",
-            content: prompt
+            content: [
+              {
+                type: "text",
+                text: prompt
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: memeUrl,
+                  detail: "high"
+                }
+              }
+            ]
           }
         ],
         response_format: { type: "json_object" },
@@ -134,14 +147,14 @@ Make your explanation helpful for language students.`;
 
 The student is learning English at the ${level.toUpperCase()} level.
 
-Create a vocabulary lesson based on this internet meme with title: "${memeTitle}"
+Analyze both the image and the title "${memeTitle}" to create a comprehensive vocabulary lesson.
 
 Focus on educational vocabulary learning and generate a lesson in the following JSON structure:
 
 {
   "vocabulary": [
     {
-      "word": "word or phrase from the meme",
+      "word": "word or phrase from the meme (both image and text)",
       "definition": "clear, level-appropriate definition", 
       "example": "one example sentence using this word"
     }
@@ -174,7 +187,7 @@ Focus on educational vocabulary learning and generate a lesson in the following 
 }
 
 IMPORTANT: 
-- Extract 5-8 vocabulary words from the provided text title
+- Analyze both the visual content and text title to extract 5-8 vocabulary words
 - Create 8-12 educational quiz questions (multiple choice, fill-in-the-gap, or true/false)
 - Focus on vocabulary learning and educational content only
 - Make definitions appropriate for ${level} level students
@@ -183,7 +196,7 @@ IMPORTANT:
 
 Focus on vocabulary learning appropriate for the ${level} level.`;
 
-      // Try text-only approach first to avoid content policy issues
+      // Use vision API to analyze both image and text for comprehensive lesson generation
       const response = await openai.chat.completions.create({
         model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
         messages: [
@@ -193,7 +206,19 @@ Focus on vocabulary learning appropriate for the ${level} level.`;
           },
           {
             role: "user",
-            content: prompt
+            content: [
+              {
+                type: "text",
+                text: prompt
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: memeUrl,
+                  detail: "high"
+                }
+              }
+            ]
           }
         ],
         response_format: { type: "json_object" },

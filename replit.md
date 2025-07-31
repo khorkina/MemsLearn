@@ -89,6 +89,14 @@ Preferred communication style: Simple, everyday language.
 - **Database URL**: Configured for future PostgreSQL integration
 - **Reddit API**: Direct client-side API calls
 
+## Recent Changes
+
+**2025-01-31**: Updated OpenAI API integration to use Vision models
+- Modified `/api/explain-meme` endpoint to analyze both meme images and text
+- Updated `/api/generate-lesson` endpoint to use visual analysis for vocabulary extraction
+- Both endpoints now use GPT-4V (vision) for comprehensive meme understanding
+- Enhanced accuracy by processing both visual elements and text content
+
 ## Architecture Decisions
 
 ### Client-Side Data Storage
