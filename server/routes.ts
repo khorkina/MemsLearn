@@ -53,7 +53,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const prompt = `You are an expert in internet culture helping students understand online content. 
 
-Analyze this meme image and provide a comprehensive understanding of what you see.
+Analyze this meme image and provide a comprehensive understanding of what you see. IMPORTANT: If there is any text visible in the image (captions, words on the image, speech bubbles, etc.), make sure to read and include that text in your analysis.
 
 Provide a clear, comprehensive explanation in ${targetLanguage} language in the following JSON structure:
 
@@ -64,9 +64,10 @@ Provide a clear, comprehensive explanation in ${targetLanguage} language in the 
 
 IMPORTANT: 
 - Respond ONLY in ${targetLanguage} language
+- CAREFULLY READ any text that appears ON the image itself (captions, speech bubbles, text overlays)
 - Analyze the visual content of the image INCLUDING any text that appears within the image itself
-- Read and explain any text, captions, or words that are part of the meme image
-- Focus on educational and cultural understanding of both visual elements and text within the image
+- If there is text visible in the image, make sure to explain what the text says and its meaning
+- Focus on educational and cultural understanding of both visual elements and any readable text within the image
 - Keep explanations appropriate and educational
 - If there are no significant cultural elements, you can omit the culturalContext field
 - Focus on language learning value
@@ -86,7 +87,7 @@ Make your explanation helpful for language students.`;
         messages: [
           {
             role: "system",
-            content: `You are an expert in internet culture helping with educational content. Always respond with valid JSON in the exact format requested. Respond ONLY in ${targetLanguage} language. Focus on educational content.`
+            content: `You are an expert in internet culture helping with educational content. Always respond with valid JSON in the exact format requested. Respond ONLY in ${targetLanguage} language. Focus on educational content. CRITICAL: If there is any text visible in the image (words, captions, speech bubbles), you MUST read and include that text in your response.`
           },
           {
             role: "user",
@@ -155,7 +156,7 @@ Make your explanation helpful for language students.`;
 
 The student is learning English at the ${level.toUpperCase()} level.
 
-Analyze this meme image to create a comprehensive vocabulary lesson based on what you see.
+Analyze this meme image to create a comprehensive vocabulary lesson based on what you see. IMPORTANT: If there is any text visible in the image (captions, words, speech bubbles, etc.), make sure to read that text and include words from it in your vocabulary lesson.
 
 Focus on educational vocabulary learning and generate a lesson in the following JSON structure:
 
@@ -195,9 +196,11 @@ Focus on educational vocabulary learning and generate a lesson in the following 
 }
 
 IMPORTANT: 
+- CAREFULLY READ any text that appears ON the image itself (captions, speech bubbles, text overlays)
 - Analyze the visual content INCLUDING any text that appears within the image itself
-- Read and extract vocabulary from both visual elements (objects, actions, expressions) AND text within the image
-- Extract 5-8 vocabulary words from what you see in the image and any text written on the image
+- Read and extract vocabulary from both visual elements (objects, actions, expressions) AND any text written on the image
+- Extract 5-8 vocabulary words from what you see in the image and especially any text written on the image
+- If there is readable text in the image, prioritize vocabulary from that text
 - Create 8-12 educational quiz questions (multiple choice, fill-in-the-gap, or true/false)
 - Focus on vocabulary learning and educational content only
 - Make definitions appropriate for ${level} level students
@@ -219,7 +222,7 @@ Focus on vocabulary learning appropriate for the ${level} level.`;
         messages: [
           {
             role: "system",
-            content: "You are an expert English teacher creating educational vocabulary lessons. Always respond with valid JSON in the exact format requested. Focus on educational content only."
+            content: "You are an expert English teacher creating educational vocabulary lessons. Always respond with valid JSON in the exact format requested. Focus on educational content only. CRITICAL: If there is any text visible in the image (words, captions, speech bubbles), you MUST read that text and include words from it in your vocabulary lesson."
           },
           {
             role: "user",
