@@ -14,25 +14,29 @@ export const Logo: React.FC<LogoProps> = ({ size = 40, className = "" }) => {
       className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Graduation cap - more prominent and clear */}
-      <path 
-        d="M20 40 L50 30 L80 40 L80 48 L75 50 L50 42 L25 50 L20 48 Z" 
-        fill="#8B7355" 
-        stroke="#6B5B47" 
-        strokeWidth="1.5"
+      {/* Academic graduation cap base (skull cap) */}
+      <ellipse cx="50" cy="45" rx="20" ry="8" 
+        fill="#2C2C2C" 
+        stroke="#1F1F1F" 
+        strokeWidth="1"
       />
       
-      {/* Graduation cap board (mortarboard) */}
-      <rect x="35" y="28" width="30" height="30" rx="2" 
-        fill="#8B7355" 
-        stroke="#6B5B47" 
+      {/* Mortarboard (square academic board) */}
+      <rect x="30" y="35" width="40" height="40" rx="1" 
+        fill="#2C2C2C" 
+        stroke="#1F1F1F" 
         strokeWidth="1.5"
-        transform="rotate(45 50 43)"
+        transform="rotate(15 50 40)"
       />
       
-      {/* Graduation cap tassel */}
-      <line x1="65" y1="35" x2="70" y2="28" stroke="#8B7355" strokeWidth="2"/>
-      <circle cx="70" cy="28" r="2" fill="#8B7355"/>
+      {/* Academic tassel - hanging from center */}
+      <line x1="50" y1="35" x2="52" y2="25" stroke="#DAA520" strokeWidth="2"/>
+      <line x1="52" y1="25" x2="54" y2="20" stroke="#DAA520" strokeWidth="1.5"/>
+      <line x1="52" y1="25" x2="50" y2="20" stroke="#DAA520" strokeWidth="1.5"/>
+      <line x1="52" y1="25" x2="48" y2="20" stroke="#DAA520" strokeWidth="1.5"/>
+      
+      {/* Button on top of mortarboard */}
+      <circle cx="50" cy="35" r="1.5" fill="#1F1F1F"/>
       
       {/* Minimalist clown face */}
       <circle cx="50" cy="60" r="22" fill="#F5F5DC" stroke="#D2B48C" strokeWidth="1.5"/>
