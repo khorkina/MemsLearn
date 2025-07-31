@@ -58,14 +58,15 @@ Analyze this meme image and provide a comprehensive understanding of what you se
 Provide a clear, comprehensive explanation in ${targetLanguage} language in the following JSON structure:
 
 {
-  "explanation": "Educational explanation of what this image shows and its cultural context, focusing only on visual elements",
+  "explanation": "Educational explanation of what this image shows and its cultural context, including any text visible within the image",
   "culturalContext": "Any cultural background or context needed to understand this content"
 }
 
 IMPORTANT: 
 - Respond ONLY in ${targetLanguage} language
-- Analyze ONLY the visual content of the image - ignore any text titles or captions provided separately
-- Focus on educational and cultural understanding of what you see in the image
+- Analyze the visual content of the image INCLUDING any text that appears within the image itself
+- Read and explain any text, captions, or words that are part of the meme image
+- Focus on educational and cultural understanding of both visual elements and text within the image
 - Keep explanations appropriate and educational
 - If there are no significant cultural elements, you can omit the culturalContext field
 - Focus on language learning value
@@ -161,7 +162,7 @@ Focus on educational vocabulary learning and generate a lesson in the following 
 {
   "vocabulary": [
     {
-      "word": "word or phrase describing what you see in the image",
+      "word": "word or phrase from the image (including text within the image)",
       "definition": "clear, level-appropriate definition", 
       "example": "one example sentence using this word"
     }
@@ -194,8 +195,9 @@ Focus on educational vocabulary learning and generate a lesson in the following 
 }
 
 IMPORTANT: 
-- Analyze ONLY the visual content of the image - ignore any text titles or captions provided separately
-- Extract 5-8 vocabulary words from what you see in the image (objects, actions, expressions, etc.)
+- Analyze the visual content INCLUDING any text that appears within the image itself
+- Read and extract vocabulary from both visual elements (objects, actions, expressions) AND text within the image
+- Extract 5-8 vocabulary words from what you see in the image and any text written on the image
 - Create 8-12 educational quiz questions (multiple choice, fill-in-the-gap, or true/false)
 - Focus on vocabulary learning and educational content only
 - Make definitions appropriate for ${level} level students
