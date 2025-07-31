@@ -92,10 +92,11 @@ Preferred communication style: Simple, everyday language.
 ## Recent Changes
 
 **2025-01-31**: Updated OpenAI API integration to use Vision models
-- Modified `/api/explain-meme` endpoint to analyze both meme images and text
-- Updated `/api/generate-lesson` endpoint to use visual analysis for vocabulary extraction
-- Both endpoints now use GPT-4V (vision) for comprehensive meme understanding
-- Enhanced accuracy by processing both visual elements and text content
+- Modified `/api/explain-meme` endpoint to analyze only meme images (visual content only)
+- Updated `/api/generate-lesson` endpoint to extract vocabulary from visual elements only
+- Both endpoints now use GPT-4V (vision) for pure visual analysis of memes
+- Vocabulary and lessons generated based solely on what AI sees in images, not text captions
+- Enhanced educational value by focusing on visual learning and object recognition
 
 ## Architecture Decisions
 

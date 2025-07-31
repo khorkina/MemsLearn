@@ -53,19 +53,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const prompt = `You are an expert in internet culture helping students understand online content. 
 
-Analyze both the image and the title "${memeTitle}" to provide a comprehensive understanding.
+Analyze this meme image and provide a comprehensive understanding of what you see.
 
 Provide a clear, comprehensive explanation in ${targetLanguage} language in the following JSON structure:
 
 {
-  "explanation": "Educational explanation of what this content means and its context, analyzing both the visual elements and text",
+  "explanation": "Educational explanation of what this image shows and its cultural context, focusing only on visual elements",
   "culturalContext": "Any cultural background or context needed to understand this content"
 }
 
 IMPORTANT: 
 - Respond ONLY in ${targetLanguage} language
-- Analyze both the image content and the text title
-- Focus on educational and cultural understanding
+- Analyze ONLY the visual content of the image - ignore any text titles or captions provided separately
+- Focus on educational and cultural understanding of what you see in the image
 - Keep explanations appropriate and educational
 - If there are no significant cultural elements, you can omit the culturalContext field
 - Focus on language learning value
@@ -77,7 +77,7 @@ Make your explanation helpful for language students.`;
         throw new Error("Invalid image URL provided");
       }
 
-      console.log(`[EXPLAIN-MEME] Processing meme: "${memeTitle}" with image: ${memeUrl}`);
+      console.log(`[EXPLAIN-MEME] Processing meme image only: ${memeUrl}`);
 
       // Use vision API to analyze both image and text
       const response = await openai.chat.completions.create({
@@ -154,14 +154,14 @@ Make your explanation helpful for language students.`;
 
 The student is learning English at the ${level.toUpperCase()} level.
 
-Analyze both the image and the title "${memeTitle}" to create a comprehensive vocabulary lesson.
+Analyze this meme image to create a comprehensive vocabulary lesson based on what you see.
 
 Focus on educational vocabulary learning and generate a lesson in the following JSON structure:
 
 {
   "vocabulary": [
     {
-      "word": "word or phrase from the meme (both image and text)",
+      "word": "word or phrase describing what you see in the image",
       "definition": "clear, level-appropriate definition", 
       "example": "one example sentence using this word"
     }
@@ -194,7 +194,8 @@ Focus on educational vocabulary learning and generate a lesson in the following 
 }
 
 IMPORTANT: 
-- Analyze both the visual content and text title to extract 5-8 vocabulary words
+- Analyze ONLY the visual content of the image - ignore any text titles or captions provided separately
+- Extract 5-8 vocabulary words from what you see in the image (objects, actions, expressions, etc.)
 - Create 8-12 educational quiz questions (multiple choice, fill-in-the-gap, or true/false)
 - Focus on vocabulary learning and educational content only
 - Make definitions appropriate for ${level} level students
@@ -208,7 +209,7 @@ Focus on vocabulary learning appropriate for the ${level} level.`;
         throw new Error("Invalid image URL provided");
       }
 
-      console.log(`[GENERATE-LESSON] Processing meme: "${memeTitle}" with image: ${memeUrl} for ${level} level`);
+      console.log(`[GENERATE-LESSON] Processing meme image only: ${memeUrl} for ${level} level`);
 
       // Use vision API to analyze both image and text for comprehensive lesson generation
       const response = await openai.chat.completions.create({
